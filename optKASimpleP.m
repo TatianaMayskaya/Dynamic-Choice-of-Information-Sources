@@ -15,7 +15,7 @@ else
   delta_u = max(u(ind(0,1),:)) - u(ind(0,1),a);
   p = P01;
 end
-cont_region = (p*delta_u>=1) && (P10+P01<=1);
+cont_region = (p*delta_u>=1) & (P10+P01<=1);
 points = zeros(size(p)); points(cont_region) = k;
 EV = P10*u(ind(1,0),a) + P01*u(ind(0,1),a) + (1-P10-P01)*u(ind(0,0),a);
 EV(cont_region) = EV(cont_region) + p(cont_region)*delta_u - 1 - (1-p(cont_region)).*log((delta_u-1)./(1./p(cont_region)-1));

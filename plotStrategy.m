@@ -3,7 +3,7 @@ function fig = plotStrategy (points, X, Y, triangle, fig)
 % Input:
 %   X, Y: two n x m matrices that correspond to 2-D grid coordinates (all rows of X are identical and correspond to x-axes, all columns of Y are identical and correspond to y-axes)
 %   points: n x m matrix that corresponds to the strategy, each element is either 0 (= no learning), or 1 (= use source 1), or 2 (= use source 2)
-%   triangle: either True (x-axes is p10, y-axes is p01) or False (x-axes is q1/(1+q1), y-axes is q2/(1+q2)) 
+%   triangle: either true (x-axes is p10, y-axes is p01) or false (x-axes is q1/(1+q1), y-axes is q2/(1+q2)) 
 %   fig: figure number
 % Output:
 %   fig: next figure number

@@ -9,5 +9,5 @@ function fig = plotKASimpleP (u, k, a, fig)
 %   fig: next figure number
 step = 0.001; [P10, P01] = meshgrid(0:step:1, 0:step:1);
 points = optKASimpleP (u, k, a, P10, P01);
-fig = plotStrategy (points, P10, P01, True, fig);
+fig = plotStrategy (points, P10, P01, true, fig);
 end
