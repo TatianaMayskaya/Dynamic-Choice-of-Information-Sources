@@ -15,4 +15,6 @@ fig = 1;
 k = 1; a = 1; fig = plotKASimpleP (u, k, a, fig);
 % plot optimal simple strategy when p11=0
 fig = plotSimpleP (u, fig);
+% plot optimal strategy when p11=0
+fig = plotP (u, fig);
 end
