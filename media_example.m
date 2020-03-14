@@ -11,6 +11,8 @@ u=zeros(4,length(u00));
 u(ind(0,0),:)=u00; u(ind(1,0),:)=u10; u(ind(0,1),:)=u01; u(ind(1,1),:)=u11;
 fig = 1;
 
-% plot (1,I)-simple strategy
+% plot (1,I)-simple strategy when p11=0
 k = 1; a = 1; fig = plotKASimpleP (u, k, a, fig);
+% plot optimal simple strategy when p11=0
+fig = plotSimpleP (u, fig);
 end
