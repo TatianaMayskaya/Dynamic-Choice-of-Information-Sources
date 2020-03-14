@@ -42,7 +42,7 @@ else
     else
         q = Q2; q_fixed = Q1; mult = 1+eta2+(1+xi)*Q1;
     end
-    q_bar = Q (u, k, a, q, xi, eta0, eta1, eta2);
+    q_bar = Q (u, k, a, q_fixed, xi, eta0, eta1, eta2);
     cont_region = q<=q_bar;
     points = zeros(size(q)); points(cont_region) = k;
     EV = (1+eta0)*u(ind(1,1),a)+(1+eta1)*Q1*u(ind(0,1),a)...
@@ -60,16 +60,16 @@ function res = Q (u, k, a, q, xi, eta0, eta1, eta2)
 %   u: payoff matrix, 4 x number of actions
 %   k: source (1 or 2)
 %   a: action (column number in matrix u())
-%   q: fixed coordinate (q2 if k=1, q1 if k=2)
+%   q: fixed coordinate (q2 if k=1, q1 if k=2), n x m matrix
 %   xi>=-1, eta0\in{0,1}, eta1\in{0,1}, eta2\in{0,1}: space parameters
 % Output:
-%   res: threshold for qk, size(res)=size(q)
+%   res=Q_k(rho\q_k,a): threshold for qk, n x m matrix
 if k==1
     eta_num = eta2; eta_den = eta1; uu = u(ind(1,0),a);
 else
     eta_num = eta1; eta_den = eta2; uu = u(ind(0,1),a);
 end
-res = (1+eta0+(1+eta_num)*q).*(W(k,q,eta0,eta_num)-1)...
+res = (1+eta0+(1+eta_num)*q).*(W(u,k,q,eta0,eta_num)-1)...
     -(1+eta_num)*q*uu-(1+eta0)*u(ind(1,1),a);
 res = res./(1+eta_den+(1+xi)*q);
 end
