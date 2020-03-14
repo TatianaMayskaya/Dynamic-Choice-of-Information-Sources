@@ -1,9 +1,7 @@
-function fig = plotStrategy (points, X, Y, triangle, fig)
+function fig = plot_strategy (points, X, Y, triangle, fig)
 % Plot a strategy on the belief space
 % Input:
-%   X, Y: two n x m matrices that correspond to 2-D grid coordinates (all
-%         rows of X are identical and correspond to x-axes, all columns of
-%         Y are identical and correspond to y-axes)
+%   X, Y: two n x m matrices that correspond to 2-D grid coordinates 
 %   points: n x m matrix that corresponds to the strategy, each element is
 %           either 0 (= no learning), or 1 (= use source 1), or 2 (= use
 %           source 2)

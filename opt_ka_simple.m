@@ -4,13 +4,11 @@ function [points, EV] = opt_ka_simple (u, k, a, X, Y, space_parameters)
 %   u: payoff matrix, 4 x number of actions
 %   k: source (1 or 2)
 %   a: action (column number in matrix u())
-%   X, Y: two n x m matrices that correspond to 2-D grid coordinates (all
-%         rows of X are identical and correspond to x-axes, all
-%         columns of Y are identical and correspond to y-axes)
+%   X, Y: two n x m matrices that correspond to 2-D grid coordinates 
 %   space_parameters: either 1 or [xi, eta0, eta1, eta2]
 %       * if space_parameters = 1, then X=P10, Y=P01 and p11=0
 %       * if space_parameters = [xi, eta0, eta1, eta2], with xi>=-1,
-%                               eta0\in{0,1}, eta1\in{0,1}, eta2\in{0,1},
+%                               eta0\in{0,-1}, eta1\in{0,-1}, eta2\in{0,-1},
 %                               then X=Q1/(1+Q1), Y=Q2/(1+Q2)
 % Output:
 %   points: n x m matrix that corresponds to the optimal (k,a)-simple
@@ -61,7 +59,7 @@ function res = Q (u, k, a, q, xi, eta0, eta1, eta2)
 %   k: source (1 or 2)
 %   a: action (column number in matrix u())
 %   q: fixed coordinate (q2 if k=1, q1 if k=2), n x m matrix
-%   xi>=-1, eta0\in{0,1}, eta1\in{0,1}, eta2\in{0,1}: space parameters
+%   xi>=-1, eta0\in{0,-1}, eta1\in{0,-1}, eta2\in{0,-1}: space parameters
 % Output:
 %   res=Q_k(rho\q_k,a): threshold for qk, n x m matrix
 if k==1
