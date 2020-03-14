@@ -27,7 +27,7 @@ bq1 = q1(1:end-1,2:end); bq2 = q2(2:end,1:end-1);
 solved = zeros(size(points));
 solved(:,end) = 1; solved(end,:) = 1; lineLength = 0;
 while sum(1-solved(:)) > 0
-    [points, solved, EV] = opt_step (points, solved, EV, source1_opt, source2_opt, mult1, V1cont, mult2, V2cont);
+    [points, solved, EV] = opt_step(points,solved,EV,u,q1,q2,xi,eta0,eta1,eta2,source1_opt,source2_opt,F1,F2);
     fprintf(repmat('\b',1,lineLength));
     lineLength = fprintf('Progress bar: %3.1f/100%%',sum(solved(:))/length(solved(:))*100);
 end

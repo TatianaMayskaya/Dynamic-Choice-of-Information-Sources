@@ -14,7 +14,7 @@ if k==1
 else
     uu = u(1,ind(0,1),:);
 end
-R = korn (ones(size(q)), max(u(1,ind(1,1),:)) - u(1,ind(1,1),:) - 1);
-UU = kron (ones(size(q)), uu); Q = kron (q, ones(size(uu)));
+R = bsxfun(@times, ones(size(q)), max(u(1,ind(1,1),:)) - u(1,ind(1,1),:) - 1);
+UU = bsxfun(@times, ones(size(q)), uu); Q = bsxfun(@times, q, ones(size(uu)));
 F = -R./Q - log(Q);  F(R>Q) = -log(R(R>Q)) - 1;  F = F + UU;
 end

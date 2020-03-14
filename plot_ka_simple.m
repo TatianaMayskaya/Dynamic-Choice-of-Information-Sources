@@ -13,6 +13,7 @@ function fig = plot_ka_simple (u, k, a, space_parameters, fig)
 % Output:
 %   fig: next figure number
 step = 0.001; [X, Y] = meshgrid(0:step:1, 0:step:1);
-points = opt_ka_simple (u, k, a, X, Y, space_parameters);
+Q1 = X./(1-X); Q2 = Y./(1-Y); F1=f(u, 1, Q2); F2=f(u, 2, Q1);
+points = opt_ka_simple (u, k, a, X, Y, space_parameters, F1, F2);
 fig = plot_strategy (points, X, Y, length(space_parameters)==1, fig);
 end

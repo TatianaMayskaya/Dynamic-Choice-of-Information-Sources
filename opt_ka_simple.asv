@@ -1,4 +1,4 @@
-function [points, EV] = opt_ka_simple (u, k, a, X, Y, space_parameters, F1, F2)
+function [points, EV] = opt_ka_simple (u, k, a, X, Y, space_parameters)
 % Find optimal (k,a)-simple strategy
 % Input:
 %   u: payoff matrix, 4 x number of actions
@@ -10,7 +10,7 @@ function [points, EV] = opt_ka_simple (u, k, a, X, Y, space_parameters, F1, F2)
 %       * if space_parameters = [xi, eta0, eta1, eta2], with xi>=-1,
 %                               eta0\in{0,-1}, eta1\in{0,-1}, eta2\in{0,-1},
 %                               then X=Q1/(1+Q1), Y=Q2/(1+Q2)
-%   F1=f(u, 1, Q2), F2=f(u, 2, Q1) if X=Q1/(1+Q1), Y=Q2/(1+Q2)
+%   F1=f(u, 1, Q1), F2=f(u, 2, Q2)
 % Output:
 %   points: n x m matrix that corresponds to the optimal (k,a)-simple
 %           strategy, each element is either 0 (= no learning), or k (= use
@@ -37,9 +37,9 @@ else
     eta0 = space_parameters(2); eta1 = space_parameters(3);
     eta2 = space_parameters(4);
     if k == 1
-        q = Q1; q_fixed = Q2; mult = 1+eta1+(1+xi)*Q2; F=F1;
+        q = Q1; q_fixed = Q2; mult = 1+eta1+(1+xi)*Q2;
     else
-        q = Q2; q_fixed = Q1; mult = 1+eta2+(1+xi)*Q1; F=F2;
+        q = Q2; q_fixed = Q1; mult = 1+eta2+(1+xi)*Q1;
     end
     q_bar = Q (u, k, a, q_fixed, xi, eta0, eta1, eta2, F);
     cont_region = q<=q_bar;
