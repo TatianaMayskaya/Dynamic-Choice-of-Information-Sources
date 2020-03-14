@@ -6,8 +6,8 @@ function [points, EV] = optKASimpleP (u, k, a, P10, P01)
 %   a: action (column number in matrix u())
 %   P10, P01: two n x m matrices that correspond to 2-D grid coordinates (all rows of P10 are identical and correspond to x-axes, all columns of P01 are identical and correspond to y-axes)
 % Output:
-%   points: n x m matrix that corresponds to the optimal (k,a)-strategy, each element is either 0 (= no learning), or k (= use source k)
-%   EV: n x m matrix that corresponds to the expected value from the optimal (k,a)-strategy
+%   points: n x m matrix that corresponds to the optimal (k,a)-simple strategy, each element is either 0 (= no learning), or k (= use source k)
+%   EV: n x m matrix that corresponds to the expected value from the optimal (k,a)-simple strategy
 if k == 1
   delta_u = max(u(ind(1,0),:)) - u(ind(1,0),a);
   p = P10; 
