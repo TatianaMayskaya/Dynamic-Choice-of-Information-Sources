@@ -1,4 +1,4 @@
-function EV = W (u, k, q, eta0, eta, F)
+function EV = W (u, k, q, eta0, eta)
 % Expected payoff when theta_k=1
 % Input:
 %   u: payoff matrix, 4 x number of actions
@@ -6,7 +6,6 @@ function EV = W (u, k, q, eta0, eta, F)
 %   q: fixed coordinate (q2 if k=1, q1 if k=2), n x m matrix
 %   eta0\in{0,-1}, eta\in{0,-1}: space parameters, 
 %                              eta=eta2 if k=1, eta=eta1 if k=2
-%   F=f(u, k, q)
 % Output:
 %   EV=W_k(q,eta0,eta): expected payoff when theta_k=1, n x m matrix
 if k==1
@@ -14,6 +13,6 @@ if k==1
 else
     uu = u(ind(0,1),:);
 end
-B = q./(1+q).*(max(F,[],3)+log(q)+(max(u(ind(1,1),:))-1)./q);
+B = q./(1+q).*(max(f(u, k, q),[],3)+log(q)+(max(u(ind(1,1),:))-1)./q);
 EV = (1+eta0+eta) * B - eta0 * max(uu) - eta * max(u(ind(1,1),:));
 end

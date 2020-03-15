@@ -1,4 +1,4 @@
-function [points, EV] = opt_ka_simple (u, k, a, X, Y, space_parameters, F1, F2)
+function [points, EV] = opt_ka_simple (u, k, a, X, Y, space_parameters)
 % Find optimal (k,a)-simple strategy
 % Input:
 %   u: payoff matrix, 4 x number of actions
@@ -10,7 +10,6 @@ function [points, EV] = opt_ka_simple (u, k, a, X, Y, space_parameters, F1, F2)
 %       * if space_parameters = [xi, eta0, eta1, eta2], with xi>=-1,
 %                               eta0\in{0,-1}, eta1\in{0,-1}, eta2\in{0,-1},
 %                               then X=Q1/(1+Q1), Y=Q2/(1+Q2)
-%   F1=f(u, 1, Q2), F2=f(u, 2, Q1) if X=Q1/(1+Q1), Y=Q2/(1+Q2)
 % Output:
 %   points: n x m matrix that corresponds to the optimal (k,a)-simple
 %           strategy, each element is either 0 (= no learning), or k (= use
@@ -37,11 +36,11 @@ else
     eta0 = space_parameters(2); eta1 = space_parameters(3);
     eta2 = space_parameters(4);
     if k == 1
-        q = Q1; q_fixed = Q2; mult = 1+eta1+(1+xi)*Q2; F=F1;
+        q = Q1; q_fixed = Q2; mult = 1+eta1+(1+xi)*Q2;
     else
-        q = Q2; q_fixed = Q1; mult = 1+eta2+(1+xi)*Q1; F=F2;
+        q = Q2; q_fixed = Q1; mult = 1+eta2+(1+xi)*Q1; 
     end
-    q_bar = Q (u, k, a, q_fixed, xi, eta0, eta1, eta2, F);
+    q_bar = Q (u, k, a, q_fixed, xi, eta0, eta1, eta2);
     cont_region = q<=q_bar;
     points = zeros(size(q)); points(cont_region) = k;
     EV = (1+eta0)*u(ind(1,1),a)+(1+eta1)*Q1*u(ind(0,1),a)...
@@ -53,7 +52,7 @@ else
 end
 end
 
-function res = Q (u, k, a, q, xi, eta0, eta1, eta2, F)
+function res = Q (u, k, a, q, xi, eta0, eta1, eta2)
 % Threshold for optimal (k,a)-simple strategy
 % Input: 
 %   u: payoff matrix, 4 x number of actions
@@ -61,7 +60,6 @@ function res = Q (u, k, a, q, xi, eta0, eta1, eta2, F)
 %   a: action (column number in matrix u())
 %   q: fixed coordinate (q2 if k=1, q1 if k=2), n x m matrix
 %   xi>=-1, eta0\in{0,-1}, eta1\in{0,-1}, eta2\in{0,-1}: space parameters
-%   F=f(u, k, q)
 % Output:
 %   res=Q_k(rho\q_k,a): threshold for qk, n x m matrix
 if k==1
@@ -69,7 +67,7 @@ if k==1
 else
     eta_num = eta1; eta_den = eta2; uu = u(ind(0,1),a);
 end
-res = (1+eta0+(1+eta_num)*q).*(W(u,k,q,eta0,eta_num,F)-1)...
+res = (1+eta0+(1+eta_num)*q).*(W(u,k,q,eta0,eta_num)-1)...
     -(1+eta_num)*q*uu-(1+eta0)*u(ind(1,1),a);
 res = res./(1+eta_den+(1+xi)*q);
 end
